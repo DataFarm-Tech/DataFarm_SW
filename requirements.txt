@@ -1,0 +1,5 @@
+pandas
+netifaces
+uuid
+mysql.connector
+colorama
