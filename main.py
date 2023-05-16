@@ -164,18 +164,14 @@ if run:
     print(Style.RESET_ALL)
     time.sleep(5)
 
-    user_choice = input("Enter Interface:")
-    if user_choice == "eth0":
-        inter = "eth0"
-        r_run()
-    elif user_choice == "wlan0":
-        inter = "wlan0"
-        r_run()
-    elif user_choice == "wlp58s0":
+
+    user_choice = input("Test (1 for testing):")
+    if user_choice == "1":
         inter = "wlp58s0"
         r_run()
     else:
-        print("Incorrect Interface Type")
+        inter = "eth0"
+        r_run()
 
 else:
     print(Fore.RED+"[ERROR] return 0: SYSTEM IS NOT READY TO RUN. ")
