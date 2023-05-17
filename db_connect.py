@@ -2,10 +2,10 @@ from df_imports import *
 
 def connect():
     cnx = mysql.connector.connect(
-        user='sql12617015', 
-        password='YcZmZpsRNy', 
+        user='sql12618889', 
+        password='KKleVPC9cK', 
         host='sql12.freemysqlhosting.net', 
-        database='sql12617015')
+        database='sql12618889')
     return cnx
 
 
@@ -35,6 +35,8 @@ def create_tables():
     cnx.commit()
     cursor.close()
     cnx.close()
+
+
 
 
 

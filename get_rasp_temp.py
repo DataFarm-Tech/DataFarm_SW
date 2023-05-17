@@ -145,7 +145,8 @@ def insert_record(temp,node_id,hw_ver,sw_ver):
 
 def r_run():
     while True:
-        with open('/sys/class/thermal/thermal_zone0/temp', 'r') as f:
+        # with open('/sys/class/thermal/thermal_zone0/temp', 'r') as f:
+        with open('/tmp/temp', 'r') as f:
             temp = int(f.read()) / 1000.0
             curr_time = datetime.datetime.now()
             temp = temp - 20
