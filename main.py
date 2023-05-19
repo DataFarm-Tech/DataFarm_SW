@@ -10,19 +10,11 @@ os.system("clear")
 run = True
 
 
-############################################################################ 
-######   GET ENV VARIABLES FROM SYSTEM LINUX KERNEL 
-############################################################################
-
-
 node_id = os.environ.get('NODEID')
+user_id = os.environ.get('USERID')
 hw_ver = os.environ.get('HW_VER')
 sw_ver = os.environ.get('SW_VER')
 
-
-############################################################################ 
-######   FUNCTIONS TO GET SYSTEM PARAMETERS/METRICS/NETWORKING INFO  
-############################################################################
 
 
 def getPubIP4():
@@ -92,12 +84,11 @@ def check_env():
     print("PENDING......")
     time.sleep(5)
 
-    if not node_id or not hw_ver or not sw_ver:
+    if not node_id or not hw_ver or not sw_ver or not user_id:
         print(Fore.RED+"[ERROR] return 0: ENVIRONMENTAL VARIABLES ARE NOT SET. ")
         print(Style.RESET_ALL)
         print("EXITING WITH RETURN VALUE 0")
         time.sleep(5)
-        # print("NODEID=",node_id,"\n","HW_VER=",hw_ver,"\n","SW_VER=",sw_ver,"\n")
         return False
 
     else:
@@ -108,7 +99,7 @@ def check_env():
    
 
 
-def insert_record(temp,node_id,hw_ver,sw_ver):
+def insert_record(temp,node_id,hw_ver,sw_ver,user_id):
 
     ipv4_pub = getPubIP4()
     ipv4_pri = getPriIP4()
@@ -119,10 +110,10 @@ def insert_record(temp,node_id,hw_ver,sw_ver):
     time = getTime()
 
     add_record = ("INSERT INTO dirty_data "
-                    "(mac_addr,ipv4_pri,ipv4_pub,ipv6_pri,ipv4_gw,node_id,time,hw_ver,sw_ver,gps_loc,temp) "
-                    "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)")
+                    "(mac_addr,ipv4_pri,ipv4_pub,ipv6_pri,ipv4_gw,node_id,user_id,time,hw_ver,sw_ver,gps_loc,temp) "
+                    "VALUES (%s,%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)")
 
-    data_record = (mac_addr,ipv4_pri,ipv4_pub,ipv6_pri,ipv4_gw,node_id,time,hw_ver,sw_ver,gps_loc,temp)
+    data_record = (mac_addr,ipv4_pri,ipv4_pub,ipv6_pri,ipv4_gw,node_id,user_id,time,hw_ver,sw_ver,gps_loc,temp)
 
     cnx = connect()
     cursor = cnx.cursor()
@@ -141,39 +132,29 @@ def insert_record(temp,node_id,hw_ver,sw_ver):
     print("IPV6 PRI='"+ipv6_pri+"'")
     print("IPV4 GW='"+ipv4_gw+"'")
     print("TEMP='"+str(temp)+"'")
+    print("USER_ID='"+user_id+"'")
     print("GPS LOCATION='"+gps_loc+"'","\n")
 
 def r_run():
     while True:
-        # with open('/sys/class/thermal/thermal_zone0/temp', 'r') as f:
-        with open('/tmp/temp', 'r') as f:
+        with open('/sys/class/thermal/thermal_zone0/temp', 'r') as f:
             temp = int(f.read()) / 1000.0
             curr_time = datetime.datetime.now()
             temp = temp - 20
-            insert_record(temp,node_id,hw_ver,sw_ver)
-        time.sleep(60)
+            insert_record(temp,node_id,hw_ver,sw_ver,user_id)
+        time.sleep(20)
 
 
-if not check_internet() or not check_env():
-    run = False
-else:
-    run = True
-
-
-if run:
+if check_internet() and check_env():
     print(Fore.YELLOW+"[SUCCESS] return 1: RUNNING")
     print(Style.RESET_ALL)
-    time.sleep(5)
-
-
     user_choice = input("Test (1 for testing):")
     if user_choice == "1":
         inter = "wlp58s0"
-        r_run()
     else:
         inter = "eth0"
-        r_run()
-
+    r_run()
+    
 else:
     print(Fore.RED+"[ERROR] return 0: SYSTEM IS NOT READY TO RUN. ")
     print(Style.RESET_ALL)
