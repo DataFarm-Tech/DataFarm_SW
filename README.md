@@ -16,8 +16,9 @@ Complete the following commands to mount the remote server:
 
 ```
 sudo apt-get install sshfs
-mkdir ~/DF
-sshfs lucasa@172.105.191.145:/home/lucasa ~/DF
+sudo mkdir /mnt/remote/
+echo "sudo sshfs -o allow_other,IdentityFile=/home/<username>/.ssh/id_ed25519 <username>@172.105.191.145:/home/<username>/ /mnt/remote/" >> ~/.bashrc
+source ~/.bashrc
 ```
 
 
