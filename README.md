@@ -8,6 +8,17 @@ ssh username@172.105.191.145
 Obtain password from server admin.
 The following server holds an environment to develop code as well as offering a simple way to share files.
 
+
+## Accessing Git Repo's
+To access our repo's, you must first generate a ssh key.
+This can be done by executing the key-gen.sh script. Once this has been executed. Email the admin to add the ssh key to the repo. The Admin will get back to you ASAP, with a email notification telling you that the ssh key has been added.
+
+The script can be run with the following command:
+```
+./key-gen.sh
+```
+
+
 ## Mounting Cloud Server to Local Machine
 Instead of consistently being connected via terminal or putty in ssh. We can mount the cloud server on our local filesystem. Meaning we can still use all our GUI applications like we would normally do.
 
@@ -20,17 +31,6 @@ sudo mkdir /mnt/remote/
 echo "sudo sshfs -o allow_other,IdentityFile=/home/<username>/.ssh/id_ed25519 <username>@172.105.191.145:/home/<username>/ /mnt/remote/" >> ~/.bashrc
 source ~/.bashrc
 ```
-
-
-## Accessing Git Repo's
-To access our repo's, you must first generate a ssh key.
-This can be done by executing the key-gen.sh script. Once this has been executed. Email the admin to add the ssh key to the repo. The Admin will get back to you ASAP, with a email notification telling you that the ssh key has been added.
-
-The script can be run with the following command:
-```
-./key-gen.sh
-```
-
 ## IDE Requirements
 To develop code for DataFarm Tech, we require our software engineers to utilise standardised IDE's such as:
 1. VScode
