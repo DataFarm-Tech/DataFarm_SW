@@ -137,7 +137,7 @@ def insert_record(temp,node_id,hw_ver,sw_ver,user_id):
 
 def r_run():
     while True:
-        with open('/sys/class/thermal/thermal_zone0/temp', 'r') as f:
+        with open(filepath, 'r') as f:
             temp = int(f.read()) / 1000.0
             curr_time = datetime.datetime.now()
             temp = temp - 20
@@ -151,8 +151,10 @@ if check_internet() and check_env():
     user_choice = input("Test (1 for testing):")
     if user_choice == "1":
         inter = "wlp58s0"
+        filepath = "/sys/class/thermal/thermal_zone0/temp"
     else:
         inter = "eth0"
+        filepath = "/sys/class/thermal/thermal_zone0/temp"
     r_run()
     
 else:

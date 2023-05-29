@@ -14,3 +14,4 @@ import fcntl
 import socket
 import urllib.request
 from colorama import Fore,Back,Style
+import pymysql

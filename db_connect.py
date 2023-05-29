@@ -1,12 +1,12 @@
 from df_imports import *
 
 def connect():
-    cnx = mysql.connector.connect(
-        user='sql12618889', 
-        password='KKleVPC9cK', 
-        host='sql12.freemysqlhosting.net', 
-        database='sql12618889')
-    return cnx
+    connection = pymysql.connect(
+        host="172.105.191.35",
+        user="your_username",
+        password="your_password",
+        database="datafarm")
+    return connection
 
 
 # def drop_clean():
