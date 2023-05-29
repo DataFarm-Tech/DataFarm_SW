@@ -77,7 +77,11 @@ The database team will be responisble for storing the data that has been generat
 3. Networking Team
 
 Within the networking team, you are purely responsible for estabilishing a connection 
+
+
 4. Embedded Linux Team
+
+
 5. Web Dev Team
 
 
